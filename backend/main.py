@@ -20,12 +20,12 @@ def get_server_version(url):
 
 def search_cves(version):
     try:
-        url = f"https://cve.circl.lu/api/search/{version}"
+        url = f"https://cve.circl.lu/api/vulnerability/search/{version}/{version}"
         response = requests.get(url)
         if response.status_code == 200:
             return response.json()
         else:
-            return {"error": "No CVEs found or API error."}
+            return {"error": f"No CVEs found or API error. Status code: {response.status_code}"}
     except requests.exceptions.RequestException as e:
         return {"error": f"Error fetching CVEs: {e}"}
 
